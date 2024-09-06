@@ -21,18 +21,29 @@ def get_db_connection():
         print(cursor.fetchall())
     return cursor
 
-@app.route('/city')
-def show_city():
+def get_city_data(city):
+    pass
+
+
+
+
+
+
+mysql = MySQL(app)
+@app.route('/city/<int:cityname>')
+def show_city(cityname):
+    with app.app_context():
+        cursor = mysql.connection.cursor()
+        print(cursor.execute('''use sih'''))
+        cursor.execute('''show tables''')
+        query=f'SELECT * FROM destinations where destination_id={cityname}'
+        cursor.execute(query)
+        data=cursor.fetchall()[0]
+        cname=data[1]
+        oneLiner=data[2]
     return render_template(
-        'test.html', 
-        ACCESS_KEY='pk.eyJ1IjoiZGFyc2h3aW5zIiwiYSI6ImNtMHFhMzNnZjBiaW0yaXNka3hrZTBtdWMifQ.DZr2iPpvFlHUK6uI7Hb0IQ',
-        LAT = '77.1855',
-        LNG = '28.5245'
+        'test.html', cname=cname, oneLiner=oneLiner
     )
-
-
-
-
 
 @app.route('/map')
 def mapbox_js():
