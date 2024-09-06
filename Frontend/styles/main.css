@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+   
+}
+.bulb{
+  width: 300px; /* Adjust the size as needed */
+  transform: rotate(180deg);
+  z-index: 2; /* Rotates the image by 45 degrees */
+}
